@@ -7,3 +7,10 @@ def test_guest_can_go_to_login_page(driver):
     page = MainPage(driver, url)
     page.open()
     page.go_to_login_page()
+
+
+def test_guest_should_see_login_link(driver):
+    url = "http://selenium1py.pythonanywhere.com/"
+    page = MainPage(driver, url)
+    page.open()
+    page.should_be_login_link()
