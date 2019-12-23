@@ -16,3 +16,8 @@ class LoginPageLocators:
     REGISTRATION_PASSWORD_SECOND = (By.CSS_SELECTOR, 'input[name="registration-password2"]')
     REGISTRATION_SUBMIT_BUTTON = (By.CSS_SELECTOR, 'button[name="registration_submit"]')
 
+
+class ProductPageLocators:
+    PRODUCT_PAGE_ADD_TO_BASKET_BUTTON = (By.CSS_SELECTOR, '.btn-add-to-basket')
+    PRODUCT_PAGE_PRICE = (By.CSS_SELECTOR, '.product_main > .price_color')
+    PRODUCT_PAGE_BASKET_TOTAL_PRICE = (By.CSS_SELECTOR, '#messages > .alert:nth-child(3) > .alertinner > p > strong')
