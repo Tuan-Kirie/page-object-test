@@ -1,12 +1,14 @@
-from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException
+from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException, TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import math
-
+from .locators import MainPageLocators
 
 class BasePage:
     def __init__(self, driver, url, timeout=10):
         self.driver = driver
         self.url = url
-        self.driver.implicitly_wait(timeout)
+        # self.driver.implicitly_wait(timeout)
 
     def open(self):
         self.driver.get(self.url)
@@ -31,3 +33,22 @@ class BasePage:
             alert.accept()
         except NoAlertPresentException:
             print("No second alert presented")
+
+    def the_element_is_not_present(self, selector, locator, timeout=4):
+        try:
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((selector, locator)))
+        except TimeoutException:
+            return True
+        return False
+
+    def the_element_is_disappeared(self, selector, locator, timeout=5):
+        try:
+            WebDriverWait(self.driver, timeout, 1, TimeoutException). \
+                until_not(EC.presence_of_element_located((selector, locator)))
+        except TimeoutException:
+            return False
+        return True
+
+    def go_to_basket_page(self):
+        basket_button_link = self.driver.find_element(*MainPageLocators.GO_TO_BASKET_BUTTON)
+        basket_button_link.click()

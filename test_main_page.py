@@ -1,7 +1,10 @@
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
+from pages.basket_page import BasketPage
+import pytest
 
 
+@pytest.mark.skip
 def test_guest_can_go_to_login_page(driver):
     url = 'http://selenium1py.pythonanywhere.com/'
     page = MainPage(driver, url)
@@ -11,7 +14,7 @@ def test_guest_can_go_to_login_page(driver):
     login_page.should_be_login_page()
 
 
-
+@pytest.mark.skip
 def test_guest_should_see_login_link(driver):
     url = "http://selenium1py.pythonanywhere.com/"
     page = MainPage(driver, url)
@@ -19,6 +22,7 @@ def test_guest_should_see_login_link(driver):
     page.should_be_login_link()
 
 
+@pytest.mark.skip
 def test_guest_can_open_login_page(driver):
     url = 'http://selenium1py.pythonanywhere.com/ru/accounts/login/'
     page = LoginPage(driver, url)
@@ -26,6 +30,7 @@ def test_guest_can_open_login_page(driver):
     page.should_be_login_url()
 
 
+@pytest.mark.skip
 def test_guest_should_see_login_form(driver):
     url = 'http://selenium1py.pythonanywhere.com/ru/accounts/login/'
     page = LoginPage(driver, url)
@@ -33,6 +38,7 @@ def test_guest_should_see_login_form(driver):
     page.should_be_login_form()
 
 
+@pytest.mark.skip
 def test_guest_should_see_register_form(driver):
     url = 'http://selenium1py.pythonanywhere.com/ru/accounts/login/'
     page = LoginPage(driver, url)
@@ -40,8 +46,18 @@ def test_guest_should_see_register_form(driver):
     page.should_be_register_form()
 
 
+@pytest.mark.skip
 def test_should_be_login_page(driver):
     url = 'http://selenium1py.pythonanywhere.com/ru/accounts/login/'
     page = LoginPage(driver, url)
     page.open()
     page.should_be_login_page()
+
+
+def test_guest_cant_see_product_in_basket_opened_from_main_page(driver):
+    url = 'http://selenium1py.pythonanywhere.com/ru/'
+    page = MainPage(driver, url)
+    page.open()
+    page.go_to_basket_page()
+    basket_page = BasketPage(driver, page.driver.current_url)
+    basket_page.check_item_presence()
